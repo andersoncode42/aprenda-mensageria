@@ -1,9 +1,16 @@
 import json
 
-class Lote:
+
+class LoteProcessos:
 
     def __init__(self, idlote, idcategoria, lista_de_processos):
-        """Definir o construtor da classe que recebe as propriedades como parâmetros"""
+        """Construtor da classe que recebe as propriedades como parâmetros
+
+            Parameters:
+                idlote (int): O id do lote de processos
+                idcategoria (int): O id que representa a categoria dos processos
+                lista_de_processos (list): Uma lista de processos
+        """
         # Atribua os valores dos parâmetros às propriedades da classe
         self.idlote = idlote
         self.idcategoria = idcategoria
