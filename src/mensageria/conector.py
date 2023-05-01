@@ -22,7 +22,7 @@ class Conector:
         CONCLUIDOS = "CONCLUIDOS"
         ERROS = "ERROS"
 
-    def getchannel(self):
+    def get_canal(self):
         """Cria uma conexão com a mensageria e retorna um objeto dot tipo Canal Bloqueante
             Returns:
                 (BlockingChannel): Um canal do RabbitMQ
@@ -52,7 +52,7 @@ class Conector:
                 fila (str): O nome da fila
         """
 
-        canal = self.getchannel()
+        canal = self.get_canal()
 
         try:
             print(f"Tentando enviar a mensagem: {msg}, para a rota: {fila}")
@@ -84,12 +84,31 @@ class Conector:
                 (str): A mensagem da fila
         """
 
-        canal = self.getchannel()
+        canal = self.get_canal()
         try:
             metodo, propriedades, msg = canal.basic_get(queue=fila, no_ack=True)
             return msg
         except Exception as excecao:
             Logador.error(f"Erro inesperado ao consumir mensagem da fila: {fila}", excecao)
+        finally:
+            # Sempre se lembre de liberar / fechar o recurso
+            canal.close()
+
+    def get_qtd_msgs(self, fila):
+        """Retorna a quantidade de itens da fila
+            Returns:
+                (int): A quantidade de itens da fila
+        """
+        canal = self.get_canal()
+        try:
+            # O parâmetro “passive=true” -> apenas verificar se a fila existe, sem criá-la ou modificá-la1
+            # Se não existir -> retorna um erro.
+            # Se existir -> retorna as propriedades da fila, como o nome e o número de mensagens.
+            fila = canal.queue_declare(queue=fila, passive=True)
+            qtd = fila.method.message_count
+            return qtd
+        except Exception as excecao:
+            Logador.error(f"Erro inesperado ao tentar obter a quantidade de elementos da fila: {fila}", excecao)
         finally:
             # Sempre se lembre de liberar / fechar o recurso
             canal.close()
