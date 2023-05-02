@@ -1,5 +1,5 @@
 from enum import Enum
-from logador import Logador
+from mensageria.logador import Logador
 import pika
 from pika.exceptions import AMQPError
 
