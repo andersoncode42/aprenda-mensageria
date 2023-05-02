@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/aprenda-mensageria.iml" filepath="$PROJECT_DIR$/.idea/aprenda-mensageria.iml" />
+      <module fileurl="file://$USER_HOME$/bitbucket.org/doc/poc/projeto/.idea/projeto.iml" filepath="$USER_HOME$/bitbucket.org/doc/poc/projeto/.idea/projeto.iml" />
+      <module fileurl="file://$USER_HOME$/bitbucket.org/doc/poc/python/.idea/python.iml" filepath="$USER_HOME$/bitbucket.org/doc/poc/python/.idea/python.iml" />
     </modules>
   </component>
 </project>
