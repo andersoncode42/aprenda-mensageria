@@ -13,7 +13,7 @@ class Conector:
     MENSAGERIA_SENHA = "guest"
 
     # Dados da Exchange
-    EXCHANGE_NOME = "roteador"
+    EXCHANGE_NOME = "ROTEADOR"
     EXCHANGE_TIPO = "topic"
 
     class Fila(Enum):
@@ -37,9 +37,9 @@ class Conector:
 
             canal = conexao.channel()
 
-            # Declarar um exchange do tipo topic chamado "roteador"
-            canal.exchange_declare(exchange=self.EXCHANGE_NOME,
-                                   exchange_type=self.EXCHANGE_TIPO)
+            # Declarar um exchange do tipo topic caso não exista
+            #canal.exchange_declare(exchange=self.EXCHANGE_NOME,
+            #                      exchange_type=self.EXCHANGE_TIPO)
 
             return canal
         except Exception as excecao:
@@ -63,7 +63,7 @@ class Conector:
                                 body=msg)
 
             # Registrar uma mensagem de sucesso
-            Logador.info("Mensagem enviada com sucesso")
+            Logador.info(f"Mensagem publicada: {msg}")
 
         except pika.exceptions.AMQPError as excecao:
             # Registrar uma mensagem de erro em caso de exceção do rabbitmq
