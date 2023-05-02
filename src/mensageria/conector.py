@@ -86,7 +86,14 @@ class Conector:
 
         canal = self.get_canal()
         try:
-            metodo, propriedades, msg = canal.basic_get(queue=fila, no_ack=True)
+            # Confirmação de recebimento automática
+            metodo, propriedades, msg = canal.basic_get(queue=fila, auto_ack=True)
+
+            # Confirmação Manual
+            # metodo, propriedades, msg = canal.basic_get(queue=fila, auto_ack=False)
+            # fazer algo com a msg
+            # canal.basic_ack(delivery_tag=metodo.delivery_tag)
+
             return msg
         except Exception as excecao:
             Logador.error(f"Erro inesperado ao consumir mensagem da fila: {fila}", excecao)
