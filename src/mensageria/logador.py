@@ -4,6 +4,7 @@ import logging
 class Logador:
     """Classe responsável por fornecer recursos de log"""
     logging.basicConfig(level=logging.INFO)
+    logging.getLogger("pika").setLevel(logging.WARNING)
 
     @staticmethod
     def error(msg, excecao=None):
